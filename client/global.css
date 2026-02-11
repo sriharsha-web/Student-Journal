@@ -1,0 +1,283 @@
+/** @import must precede all other statements */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Glassmorphism effects */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 15%;
+
+    --primary: 264 90% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 200 100% 50%;
+    --secondary-foreground: 0 0% 100%;
+
+    --accent: 47 100% 55%;
+    --accent-foreground: 0 0% 10%;
+
+    --muted: 0 0% 95%;
+    --muted-foreground: 240 5% 55%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 5% 92%;
+    --input: 0 0% 100%;
+    --ring: 264 90% 58%;
+
+    --radius: 1rem;
+
+    /* Glassmorphism specific */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+  }
+
+  .dark {
+    --background: 240 10% 9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 8% 15%;
+    --card-foreground: 0 0% 98%;
+
+    --primary: 264 90% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 200 100% 50%;
+    --secondary-foreground: 0 0% 100%;
+
+    --accent: 47 100% 55%;
+    --accent-foreground: 0 0% 10%;
+
+    --muted: 240 5% 35%;
+    --muted-foreground: 240 5% 70%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 5% 25%;
+    --input: 240 8% 20%;
+    --ring: 264 90% 58%;
+
+    /* Dark glassmorphism */
+    --glass-bg: rgba(30, 30, 46, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", sans-serif;
+  }
+
+  :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  pre,
+  code {
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+  }
+}
+
+/* Glassmorphism utility classes */
+@layer components {
+  .glass {
+    @apply backdrop-blur-md bg-white/70 dark:bg-slate-800/70 border border-white/30 dark:border-white/10 shadow-xl;
+  }
+
+  .glass-sm {
+    @apply backdrop-blur-md bg-white/50 dark:bg-slate-900/50 border border-white/20 dark:border-white/10;
+  }
+
+  .glass-lg {
+    @apply backdrop-blur-xl bg-white/80 dark:bg-slate-800/80 border border-white/40 dark:border-white/20 shadow-2xl;
+  }
+
+  .gradient-brand {
+    background: linear-gradient(135deg, rgb(264, 90%, 58%), rgb(200, 100%, 50%), rgb(264, 90%, 58%));
+    background-size: 200% 200%;
+    animation: gradientShift 6s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .smooth-transition {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .hover-scale {
+    @apply hover:scale-105 smooth-transition;
+  }
+
+  .hover-lift {
+    @apply hover:shadow-2xl hover:-translate-y-1 smooth-transition;
+  }
+}
+
+/* RGB Gradient for brand name */
+.rgb-gradient {
+  background: linear-gradient(
+    90deg,
+    #FF0080,
+    #FF8C00,
+    #40E0D0,
+    #FF006E,
+    #0080FF,
+    #FF0080
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rgbFlow 4s ease infinite;
+  display: inline-block;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+@keyframes rgbFlow {
+  0% {
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 8px rgba(255, 0, 128, 0.5));
+  }
+  25% {
+    background-position: 50% 50%;
+    filter: drop-shadow(0 0 12px rgba(255, 140, 0, 0.5));
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: drop-shadow(0 0 12px rgba(64, 224, 208, 0.5));
+  }
+  75% {
+    background-position: 50% 50%;
+    filter: drop-shadow(0 0 12px rgba(0, 128, 255, 0.5));
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 8px rgba(255, 0, 128, 0.5));
+  }
+}
+
+/* Smooth page transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes blob {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.6s ease-out;
+}
+
+/* Skeleton loading animation */
+@keyframes pulse-subtle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.skeleton {
+  @apply bg-gray-200 dark:bg-gray-700 rounded-lg;
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
