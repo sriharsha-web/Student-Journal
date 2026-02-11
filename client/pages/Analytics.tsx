@@ -14,6 +14,9 @@ import {
   Area,
   RadarChart,
   Radar,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -464,9 +467,9 @@ export default function Analytics() {
               </h2>
               <ResponsiveContainer width="100%" height={300}>
                 <RadarChart data={analytics.subjectData}>
-                  <CartesianGrid stroke="rgba(100,100,100,0.1)" />
-                  <XAxis dataKey="subject" stroke="rgba(100,100,100,0.5)" />
-                  <YAxis stroke="rgba(100,100,100,0.5)" />
+                  <PolarGrid stroke="rgba(100,100,100,0.1)" />
+                  <PolarAngleAxis dataKey="subject" stroke="rgba(100,100,100,0.5)" />
+                  <PolarRadiusAxis stroke="rgba(100,100,100,0.5)" />
                   <Radar
                     name="Assignments"
                     dataKey="assignments"
