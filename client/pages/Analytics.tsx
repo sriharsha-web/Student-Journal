@@ -122,7 +122,7 @@ export default function Analytics() {
       // Subject distribution (from assignments)
       const subjectData = assignments.reduce(
         (acc: any, a: any) => {
-          if (a.subject) {
+          if (a && a.subject) {
             const existing = acc.find((s: any) => s.subject === a.subject);
             if (existing) {
               existing.assignments += 1;
@@ -148,24 +148,44 @@ export default function Analytics() {
 
       // Assignment analytics - with validation
       const assignmentCompletion = assignments
-        .filter((a: any) => a && a.title && Array.isArray(a.steps) && a.steps.length > 0)
+        .filter((a: any) => {
+          const isValid = a && a.title && Array.isArray(a.steps) && a.steps.length > 0;
+          if (!isValid && a) {
+            console.log('Filtered out assignment:', a.title, 'steps:', a.steps);
+          }
+          return isValid;
+        })
         .map((a: any) => {
           try {
-            const completed = a.steps.filter((s: any) => s.completed).length;
+            const completed = a.steps.filter((s: any) => s && s.completed).length;
+            const progress = Math.round((completed / a.steps.length) * 100);
+            console.log(`Assignment "${a.title}" progress:`, progress, `(${completed}/${a.steps.length})`);
             return {
-              name: a.title.substring(0, 15),
-              progress: Math.round((completed / a.steps.length) * 100),
+              name: a.title.substring(0, 20),
+              progress,
             };
           } catch (error) {
             console.error('Error calculating assignment progress:', a, error);
-            return { name: a.title?.substring(0, 15) || 'Unknown', progress: 0 };
+            return { name: a.title?.substring(0, 20) || 'Unknown', progress: 0 };
           }
         });
 
       // Count completed assignments - with validation
-      const completedAssignments = assignments.filter((a: any) =>
-        a && Array.isArray(a.steps) && a.steps.length > 0 && a.steps.every((s: any) => s.completed)
-      ).length;
+      const completedAssignments = assignments.filter((a: any) => {
+        const isComplete = a && Array.isArray(a.steps) && a.steps.length > 0 &&
+          a.steps.every((s: any) => s && s.completed);
+        if (isComplete) {
+          console.log('Completed assignment:', a.title);
+        }
+        return isComplete;
+      }).length;
+
+      console.log('Assignment analytics summary:', {
+        totalAssignments: assignments.length,
+        withValidSteps: assignmentCompletion.length,
+        completed: completedAssignments,
+        subjects: subjectData.length,
+      });
 
       return {
         taskCompletion: [
